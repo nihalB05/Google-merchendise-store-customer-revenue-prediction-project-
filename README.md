@@ -11,6 +11,7 @@ This project aims to predict customer revenue for the Google Merchandise Store u
 The repository is organized as follows:
 
 
+
 ---
 
 ## 📂 Dataset
@@ -26,18 +27,25 @@ The dataset is available in two files:
 ---
 
 ## 🛠️ Preprocessing
-The preprocessing steps include:
-1. **Handling Missing Values**:
-   - Replaced placeholders like `"not available in demo dataset"` and `"(not set)"` with `NaN`.
-   - Filled missing values in categorical columns with `"unknown"`.
-   - Filled missing values in numerical columns with the median.
-2. **Expanding JSON Columns**:
-   - Flattened nested JSON columns (`device`, `geoNetwork`, `totals`, `trafficSource`, `hits`) into separate columns.
-3. **Feature Engineering**:
-   - Extracted date-related features from `visitStartTime`.
-   - Aggregated session-level data into user-level features.
+The preprocessing steps are divided into three stages, with intermediate datasets saved at each step:
 
-The cleaned dataset is saved in the `data/processed/` folder.
+### **Step 1: Sampling the Dataset**
+- To avoid bias and improve performance, I sampled **20% of the data** using chunk-wise processing.
+- **Dataset**: [`data/sampled/train_sampled_20.csv`](data/sampled/train_sampled_20.csv)
+
+### **Step 2: Expanding JSON Columns**
+- The dataset contained nested JSON columns (`device`, `geoNetwork`, `totals`, `trafficSource`, `hits`), which were expanded into separate columns.
+- **Dataset**: [`data/preprocessed/train_preprocessed.csv`](data/preprocessed/train_preprocessed.csv)
+
+### **Step 3: Handling Missing Values and Placeholders**
+- Replaced placeholders like `"not available in demo dataset"` and `"(not set)"` with `NaN`.
+- Filled missing values in categorical columns with `"unknown"`.
+- Filled missing values in numerical columns with the median.
+- **Dataset**: [`data/cleaned/train_cleaned.csv`](data/cleaned/train_cleaned.csv)
+
+### **Final Dataset**
+- The final dataset is ready for modeling and is saved in the `data/final/` folder.
+- **Dataset**: [`data/final/train_final.csv`](data/final/train_final.csv)
 
 ---
 
